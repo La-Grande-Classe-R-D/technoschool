@@ -63,7 +63,7 @@ const team = [
     image: "/asset/sophie.png"
   },
       {
-    name: "Morin Moude",
+    name: "Morin Maude",
     role: "Chargée de formation",
     image: "/asset/avatar.svg"
   },
