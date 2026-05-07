@@ -53,8 +53,8 @@ const team = [
     image: "/asset/avatar.svg"
   },
       {
-    name: "Nom Prénom",
-    role: "Chargé de formation",
+    name: "Boussekaya Houda",
+    role: "Pôle entreprise",
     image: "/asset/avatar.svg"
   },
        {
@@ -63,8 +63,8 @@ const team = [
     image: "/asset/sophie.png"
   },
       {
-    name: "Nom Prénom",
-    role: "Responsable pédagogique",
+    name: "Morin Moude",
+    role: "Chargée de formation",
     image: "/asset/avatar.svg"
   },
   
