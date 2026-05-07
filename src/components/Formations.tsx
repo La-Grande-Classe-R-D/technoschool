@@ -5,6 +5,75 @@ import { createPortal } from "react-dom";
 import { ArrowRight, Code2, Database, Shield } from "lucide-react";
 import { motion } from "motion/react";
 
+const SITE_URL = "https://technoschool.lagrandeclasse.fr";
+
+const coursesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Formations TechnoSchool",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      item: {
+        "@type": "Course",
+        "@id": `${SITE_URL}/#course-bts-sio`,
+        name: "Développement Web / Full Stack - BTS SIO",
+        description:
+          "Maîtrisez les technologies front-end et back-end pour créer des applications web modernes et performantes. Formation BTS SIO option SLAM.",
+        provider: {
+          "@type": "EducationalOrganization",
+          "@id": `${SITE_URL}/#organization`,
+          name: "TechnoSchool — LGC R&D",
+        },
+        educationalLevel: "BTS",
+        teaches: "Développement web, Full Stack, JavaScript, bases de données, cybersécurité",
+        inLanguage: "fr-FR",
+        url: `${SITE_URL}/#formations`,
+        courseCode: "BTS-SIO-SLAM",
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "Course",
+        "@id": `${SITE_URL}/#course-data-ia`,
+        name: "Data & IA",
+        description:
+          "Exploitez la puissance des données et de l'intelligence artificielle pour résoudre des problèmes complexes.",
+        provider: {
+          "@type": "EducationalOrganization",
+          "@id": `${SITE_URL}/#organization`,
+          name: "TechnoSchool — LGC R&D",
+        },
+        teaches: "Data science, intelligence artificielle, machine learning, analyse de données",
+        inLanguage: "fr-FR",
+        url: `${SITE_URL}/#formations`,
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      item: {
+        "@type": "Course",
+        "@id": `${SITE_URL}/#course-cybersecurite`,
+        name: "Cybersécurité",
+        description:
+          "Protégez les systèmes et les données contre les menaces numériques avec des compétences en sécurité avancées.",
+        provider: {
+          "@type": "EducationalOrganization",
+          "@id": `${SITE_URL}/#organization`,
+          name: "TechnoSchool — LGC R&D",
+        },
+        teaches: "Cybersécurité, protection des systèmes, gestion des accès, prévention cyberattaques",
+        inLanguage: "fr-FR",
+        url: `${SITE_URL}/#formations`,
+      },
+    },
+  ],
+};
+
 const formations = [
   {
     icon: Code2,
@@ -81,6 +150,10 @@ export function Formations() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(coursesSchema) }}
+      />
       <section
         id="formations"
         className="section-scroll-margin py-20 px-6 bg-black/60"
