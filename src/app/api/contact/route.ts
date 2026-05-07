@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { Resend } from "resend";
 
+const MIN_FILL_MS = 3000; // temps minimum humain pour remplir le formulaire
+
 const contactSchema = z.object({
   nom: z.string().min(2, "Nom trop court").max(100, "Nom trop long"),
   email: z.string().email("Email invalide").max(254, "Email trop long"),
@@ -15,7 +17,8 @@ const contactSchema = z.object({
     .string()
     .min(10, "Message trop court (10 caractères minimum)")
     .max(2000, "Message trop long (2000 caractères maximum)"),
-  honeypot: z.string().max(0).optional(),
+  _url: z.string().max(0).optional(),   // honeypot — nom anodin pour tromper les bots
+  _t: z.string().optional(),            // timestamp d'ouverture du formulaire
 });
 
 function esc(text: string): string {
@@ -140,6 +143,15 @@ function buildText(
 }
 
 export async function POST(req: NextRequest) {
+  // Validation Content-Type
+  const contentType = req.headers.get("content-type") ?? "";
+  if (!contentType.includes("application/json")) {
+    return NextResponse.json(
+      { error: "Corps de requête invalide" },
+      { status: 400 },
+    );
+  }
+
   let body: unknown;
   try {
     body = await req.json();
@@ -150,20 +162,26 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Honeypot — remplissage = bot, on prétend que ça a réussi
-  if (
-    typeof body === "object" &&
-    body !== null &&
-    (body as Record<string, unknown>).honeypot
-  ) {
+  if (typeof body !== "object" || body === null) {
+    return NextResponse.json({ error: "Corps de requête invalide" }, { status: 400 });
+  }
+
+  const data = body as Record<string, unknown>;
+
+  // Honeypot (_url) — si rempli = bot, réponse silencieuse
+  if (data._url) {
     return NextResponse.json({ success: true });
+  }
+
+  // Vérification timing — un humain met au moins 3 secondes
+  const ts = Number(data._t);
+  if (!ts || Date.now() - ts < MIN_FILL_MS) {
+    return NextResponse.json({ success: true }); // silencieux pour ne pas informer le bot
   }
 
   const parsed = contactSchema.safeParse(body);
   if (!parsed.success) {
-    const message =
-      parsed.error.issues[0]?.message ?? "Données de formulaire invalides";
-    return NextResponse.json({ error: message }, { status: 400 });
+    return NextResponse.json({ error: "Données de formulaire invalides" }, { status: 400 });
   }
 
   const { nom, email, telephone, formation, message } = parsed.data;

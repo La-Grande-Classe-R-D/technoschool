@@ -40,6 +40,7 @@ export function ContactInquiryDialog({
   const [mounted, setMounted] = React.useState(false);
   const [status, setStatus] = React.useState<Status>("idle");
   const [errorMessage, setErrorMessage] = React.useState("");
+  const openTimeRef = React.useRef<number>(0);
   const dialogRef = React.useRef<HTMLDivElement>(null);
   const previousFocusRef = React.useRef<HTMLElement | null>(null);
   const titleId = React.useId();
@@ -93,7 +94,8 @@ export function ContactInquiryDialog({
         : "",
       message: (form.elements.namedItem("message") as HTMLTextAreaElement)
         .value,
-      honeypot: (form.elements.namedItem("website") as HTMLInputElement)?.value ?? "",
+      _url: (form.elements.namedItem("_url") as HTMLInputElement)?.value ?? "",
+      _t: String(openTimeRef.current),
     };
 
     try {
@@ -123,6 +125,7 @@ export function ContactInquiryDialog({
     setIsClosing(false);
     setStatus("idle");
     setErrorMessage("");
+    openTimeRef.current = Date.now();
     setOpen(true);
   }
 
@@ -278,12 +281,12 @@ export function ContactInquiryDialog({
                         pointerEvents: "none",
                       }}
                     >
-                      <label htmlFor="contact-website">
+                      <label htmlFor="contact-url">
                         Ne pas remplir ce champ
                       </label>
                       <input
-                        id="contact-website"
-                        name="website"
+                        id="contact-url"
+                        name="_url"
                         type="text"
                         tabIndex={-1}
                         autoComplete="off"
