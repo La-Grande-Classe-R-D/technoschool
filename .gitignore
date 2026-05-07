@@ -23,3 +23,5 @@ Thumbs.db
 
 # test coverage
 coverage/
+.pdf
+CONTACT_FORM_SETUP.md
