@@ -31,6 +31,22 @@ const coursesSchema = {
         inLanguage: "fr-FR",
         url: `${SITE_URL}/#formations`,
         courseCode: "BTS-SIO-SLAM",
+        hasCourseInstance: {
+          "@type": "CourseInstance",
+          courseMode: "onsite",
+          inLanguage: "fr-FR",
+          location: {
+            "@type": "Place",
+            name: "TechnoSchool — LGC R&D",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "51 rue Gaston Lauriau",
+              addressLocality: "Montreuil",
+              postalCode: "93100",
+              addressCountry: "FR",
+            },
+          },
+        },
       },
     },
     {
@@ -50,6 +66,22 @@ const coursesSchema = {
         teaches: "Data science, intelligence artificielle, machine learning, analyse de données",
         inLanguage: "fr-FR",
         url: `${SITE_URL}/#formations`,
+        hasCourseInstance: {
+          "@type": "CourseInstance",
+          courseMode: "onsite",
+          inLanguage: "fr-FR",
+          location: {
+            "@type": "Place",
+            name: "TechnoSchool — LGC R&D",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "51 rue Gaston Lauriau",
+              addressLocality: "Montreuil",
+              postalCode: "93100",
+              addressCountry: "FR",
+            },
+          },
+        },
       },
     },
     {
@@ -69,6 +101,22 @@ const coursesSchema = {
         teaches: "Cybersécurité, protection des systèmes, gestion des accès, prévention cyberattaques",
         inLanguage: "fr-FR",
         url: `${SITE_URL}/#formations`,
+        hasCourseInstance: {
+          "@type": "CourseInstance",
+          courseMode: "onsite",
+          inLanguage: "fr-FR",
+          location: {
+            "@type": "Place",
+            name: "TechnoSchool — LGC R&D",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "51 rue Gaston Lauriau",
+              addressLocality: "Montreuil",
+              postalCode: "93100",
+              addressCountry: "FR",
+            },
+          },
+        },
       },
     },
   ],
