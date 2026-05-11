@@ -13,10 +13,10 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   icons: {
-    apple: [{ url: "/favicon/apple-touch-icon.png", sizes: "180x180" }],
+    apple: [{ url: "/favicon/logo-lgc-TS.png", sizes: "180x180" }],
     icon: [
-      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/logo-lgc-TS.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon/logo-lgc-TS.png", sizes: "16x16", type: "image/png" },
     ],
   },
   manifest: "/favicon/site.webmanifest",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     images: [
       {
-        url: `${SITE_URL}/favicon/android-chrome-512x512.png`,
+        url: `${SITE_URL}/favicon/logo-lgc-TS.png`,
         width: 512,
         height: 512,
         alt: "TechnoSchool — LGC R&D · Formations numériques à Montreuil",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "TechnoSchool - LGC R&D",
     description:
       "Formations en développement web Full Stack (BTS SIO), Data & IA et Cybersécurité à Montreuil.",
-    images: [`${SITE_URL}/favicon/android-chrome-512x512.png`],
+    images: [`${SITE_URL}/favicon/logo-lgc-TS.png`],
   },
 };
 
@@ -55,9 +55,9 @@ const organizationSchema = {
   url: SITE_URL,
   logo: {
     "@type": "ImageObject",
-    url: `${SITE_URL}/favicon/apple-touch-icon.png`,
-    width: 180,
-    height: 180,
+    url: `${SITE_URL}/favicon/logo-lgc-TS.png`,
+    width: 512,
+    height: 512,
   },
   description:
     "Organisme de formation spécialisé dans le numérique : développement web Full Stack (BTS SIO SLAM), Data & IA et Cybersécurité, basé à Montreuil.",
