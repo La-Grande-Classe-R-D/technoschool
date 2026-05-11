@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "motion/react";
-import { Calendar, ArrowRight } from "lucide-react";
+import { Calendar, ArrowRight, X } from "lucide-react";
+import Image from "next/image";
 
 const events = [
   {
@@ -22,7 +24,24 @@ const events = [
 ];
 
 export function Events() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
+
+  const openModal = () => {
+    setClosing(false);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setClosing(true);
+    setTimeout(() => {
+      setModalOpen(false);
+      setClosing(false);
+    }, 600);
+  };
+
   return (
+    <>
     <section id="events" className="section-scroll-margin py-20 px-6 bg-black/60">
       <div className="max-w-6xl mx-auto">
         <motion.h2
@@ -54,7 +73,7 @@ export function Events() {
                   <h3 className="text-2xl mb-2">{event.title}</h3>
                   <p className="text-gray-400">{event.description}</p>
                 </div>
-                <button type="button" className="event-cta flex items-center gap-2 text-[#5C6FFF] hover:text-[#AD6BFF]">
+                <button type="button" onClick={openModal} className="event-cta flex items-center gap-2 text-[#5C6FFF] hover:text-[#AD6BFF]">
                   En savoir plus
                   <ArrowRight className="w-5 h-5" />
                 </button>
@@ -64,5 +83,43 @@ export function Events() {
         </div>
       </div>
     </section>
+
+    {modalOpen && (
+      <div
+        className={closing ? "modal-overlay-closing" : "modal-overlay"}
+        style={{ position: "fixed", inset: 0, zIndex: 9999, backgroundColor: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center", padding: "0 1rem" }}
+        onClick={closeModal}
+      >
+        <div
+          className={closing ? "modal-panel-closing" : "modal-panel"}
+          style={{ width: "420px", maxWidth: "100%", backgroundColor: "#0a0a0f", border: "1px solid #1f2937", borderRadius: "1rem", boxShadow: "0 25px 60px rgba(0,0,0,1)", overflow: "hidden", position: "relative" }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            type="button"
+            onClick={closeModal}
+            className="p-1.5 rounded-lg text-gray-500 hover:text-white hover:bg-gray-800 transition-colors"
+            aria-label="Fermer"
+            style={{ position: "absolute", top: "1rem", right: "1rem" }}
+          >
+            <X className="w-4 h-4" />
+          </button>
+
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "2.5rem 2rem", gap: "1.5rem" }}>
+            <Image
+              src="/favicon/logo-lgc-TS.png"
+              alt="TechnoSchool — LGC R&D"
+              width={80}
+              height={80}
+              style={{ borderRadius: "0.75rem" }}
+            />
+            <p style={{ color: "#d1d5db", fontSize: "1rem", textAlign: "center", lineHeight: 1.6 }}>
+              Événement à déterminer
+            </p>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 }
