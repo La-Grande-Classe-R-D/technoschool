@@ -26,7 +26,12 @@ const organizationSchema = {
   name: "TechnoSchool — LGC Recherche & Développement",
   alternateName: "LGC R&D",
   url: SITE_URL,
-  logo: `${SITE_URL}/favicon/apple-touch-icon.png`,
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/favicon/apple-touch-icon.png`,
+    width: 180,
+    height: 180,
+  },
   description:
     "Organisme de formation spécialisé dans le numérique : développement web Full Stack (BTS SIO SLAM), Data & IA et Cybersécurité, basé à Montreuil.",
   address: {
@@ -49,7 +54,11 @@ const organizationSchema = {
     "https://www.instagram.com/lgcrd",
   ],
   legalName: "LGC Recherche et Développement",
-  taxID: "882 626 229 00026",
+  identifier: {
+    "@type": "PropertyValue",
+    name: "SIRET",
+    value: "882 626 229 00026",
+  },
 };
 
 const websiteSchema = {
@@ -60,6 +69,11 @@ const websiteSchema = {
   name: "TechnoSchool — LGC R&D",
   publisher: { "@id": `${SITE_URL}/#organization` },
   inLanguage: "fr-FR",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${SITE_URL}/?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export default function RootLayout({
