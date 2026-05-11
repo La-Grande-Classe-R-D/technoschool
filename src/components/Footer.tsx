@@ -74,6 +74,14 @@ export function Footer() {
 
             {/* Links */}
             <div className="flex flex-wrap justify-center md:justify-end gap-6 text-sm text-gray-400">
+              <a
+                href="https://lagrandeclasse.fr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors duration-200"
+              >
+                lagrandeclasse.fr
+              </a>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(true)}
@@ -103,11 +111,13 @@ export function Footer() {
               />
               <button
                 type="button"
+                data-open-policy
                 onClick={() => setIsPolicyOpen(true)}
                 className="hover:text-white transition-colors duration-200 cursor-pointer"
               >
                 Politique de confidentialité
               </button>
+              
             </div>
           </div>
 
@@ -238,6 +248,7 @@ export function Footer() {
                       <span className="text-gray-500">Contact</span>{" "}
                       contact@lgc-rd.fr
                     </li>
+                  
                   </ul>
                 </div>
               </div>

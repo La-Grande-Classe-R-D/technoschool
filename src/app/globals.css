@@ -1899,6 +1899,44 @@ html{scroll-behavior:smooth}
 /* Spinner */
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
+/* ── Cookie Banner ───────────────────────────────────────── */
+@keyframes cookie-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cookie-out{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(20px)}}
+.cookie-banner{
+  position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%);z-index:10000;
+  width:min(calc(100vw - 2rem),780px);
+  border:1px solid rgba(173,107,255,.28);border-radius:1.125rem;
+  background:linear-gradient(135deg,rgba(17,24,39,.97),rgba(3,7,18,.98));
+  box-shadow:0 8px 48px rgba(0,0,0,.65),0 0 32px rgba(92,111,255,.14);
+  color:#fff;padding:1rem 1.25rem;
+}
+.cookie-banner-in{animation:cookie-in .35s ease-out both}
+.cookie-banner-out{animation:cookie-out .35s ease-in both}
+.cookie-banner-inner{display:flex;flex-wrap:wrap;align-items:center;gap:.875rem}
+.cookie-banner-text{flex:1;min-width:200px}
+.cookie-banner-title{font-size:.9rem;font-weight:600;color:#fff;margin-bottom:.2rem}
+.cookie-banner-desc{font-size:.82rem;color:rgba(209,213,219,.75);line-height:1.5}
+.cookie-banner-link{color:#AD6BFF;text-decoration:underline;background:none;border:none;cursor:pointer;padding:0;font-size:inherit}
+.cookie-banner-link:hover{color:#d8b4fe}
+.cookie-banner-actions{display:flex;gap:.625rem;flex-shrink:0}
+.cookie-banner-btn{
+  padding:.55rem 1.1rem;border-radius:9999px;font-size:.82rem;font-weight:500;
+  cursor:pointer;transition:background .2s ease,box-shadow .2s ease;white-space:nowrap;
+}
+.cookie-banner-btn-refuse{
+  border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:#d1d5db;
+}
+.cookie-banner-btn-refuse:hover{background:rgba(255,255,255,.14);color:#fff}
+.cookie-banner-btn-accept{
+  border:1px solid #5C6FFF;background:#5C6FFF;color:#fff;
+  box-shadow:0 0 16px rgba(92,111,255,.3);
+}
+.cookie-banner-btn-accept:hover{background:#4D5FEF;box-shadow:0 0 22px rgba(92,111,255,.5)}
+@media(max-width:520px){
+  .cookie-banner-inner{flex-direction:column;align-items:flex-start}
+  .cookie-banner-actions{width:100%;justify-content:flex-end}
+}
+
 /* Modal mentions légales — ease-in-out 0.6s */
 @keyframes modal-overlay-in{from{opacity:0}to{opacity:1}}
 @keyframes modal-overlay-out{from{opacity:1}to{opacity:0}}
