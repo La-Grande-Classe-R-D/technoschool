@@ -30,19 +30,19 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     images: [
       {
-        url: `${SITE_URL}/og-image.png`,
-        width: 1200,
-        height: 630,
+        url: `${SITE_URL}/favicon/android-chrome-512x512.png`,
+        width: 512,
+        height: 512,
         alt: "TechnoSchool — LGC R&D · Formations numériques à Montreuil",
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "TechnoSchool - LGC R&D",
     description:
       "Formations en développement web Full Stack (BTS SIO), Data & IA et Cybersécurité à Montreuil.",
-    images: [`${SITE_URL}/og-image.png`],
+    images: [`${SITE_URL}/favicon/android-chrome-512x512.png`],
   },
 };
 
