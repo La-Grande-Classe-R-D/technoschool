@@ -15,6 +15,7 @@ const coursesSchema = {
     {
       "@type": "ListItem",
       position: 1,
+      name: "Développement Web / Full Stack - BTS SIO",
       item: {
         "@type": "Course",
         "@id": `${SITE_URL}/#course-bts-sio`,
@@ -29,7 +30,7 @@ const coursesSchema = {
         educationalLevel: "BTS",
         teaches: "Développement web, Full Stack, JavaScript, bases de données, cybersécurité",
         inLanguage: "fr-FR",
-        url: `${SITE_URL}/#formations`,
+        url: `${SITE_URL}/#course-bts-sio`,
         courseCode: "BTS-SIO-SLAM",
         hasCourseInstance: {
           "@type": "CourseInstance",
@@ -52,6 +53,7 @@ const coursesSchema = {
     {
       "@type": "ListItem",
       position: 2,
+      name: "Data & IA",
       item: {
         "@type": "Course",
         "@id": `${SITE_URL}/#course-data-ia`,
@@ -65,7 +67,7 @@ const coursesSchema = {
         },
         teaches: "Data science, intelligence artificielle, machine learning, analyse de données",
         inLanguage: "fr-FR",
-        url: `${SITE_URL}/#formations`,
+        url: `${SITE_URL}/#course-data-ia`,
         hasCourseInstance: {
           "@type": "CourseInstance",
           courseMode: "onsite",
@@ -87,6 +89,7 @@ const coursesSchema = {
     {
       "@type": "ListItem",
       position: 3,
+      name: "Cybersécurité",
       item: {
         "@type": "Course",
         "@id": `${SITE_URL}/#course-cybersecurite`,
@@ -100,7 +103,7 @@ const coursesSchema = {
         },
         teaches: "Cybersécurité, protection des systèmes, gestion des accès, prévention cyberattaques",
         inLanguage: "fr-FR",
-        url: `${SITE_URL}/#formations`,
+        url: `${SITE_URL}/#course-cybersecurite`,
         hasCourseInstance: {
           "@type": "CourseInstance",
           courseMode: "onsite",
