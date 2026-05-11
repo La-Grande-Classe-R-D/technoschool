@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
       stream: true,
       max_tokens: 512,
-      temperature: 0.7,
+      temperature: 0.5,
     }),
   });
 
