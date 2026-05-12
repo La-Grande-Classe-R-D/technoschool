@@ -1,6 +1,14 @@
 "use client";
 
-import { Facebook, Instagram, Linkedin, X } from "lucide-react";
+import { Instagram, Linkedin, X } from "lucide-react";
+
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.19 8.19 0 0 0 4.81 1.55V6.79a4.85 4.85 0 0 1-1.04-.1z" />
+    </svg>
+  );
+}
 import { useState } from "react";
 import { ContactInquiryDialog } from "./ContactInquiryDialog";
 
@@ -59,9 +67,9 @@ export function Footer() {
               <a
                 href="#"
                 className="p-2 hover:bg-gray-900 rounded-full transition-colors duration-200"
-                aria-label="Facebook"
+                aria-label="TikTok"
               >
-                <Facebook className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
+                <TikTokIcon className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
               </a>
               <a
                 href="#"
@@ -122,7 +130,7 @@ export function Footer() {
           </div>
 
           <div className="footer-copyright mt-8 border-t border-gray-900 text-center text-sm text-gray-500">
-            © {year}&nbsp;TechnoSchool — Recherche &amp; Développement, tous droits réservés.
+            © {year}&nbsp;TechnoSchool  - Recherche &amp; Développement, tous droits réservés.
           </div>
         </div>
       </footer>
