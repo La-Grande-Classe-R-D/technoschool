@@ -50,7 +50,7 @@ const organizationSchema = {
   "@context": "https://schema.org",
   "@type": ["Organization", "EducationalOrganization"],
   "@id": `${SITE_URL}/#organization`,
-  name: "TechnoSchool — LGC Recherche & Développement",
+  name: "TechnoSchool - LGC Recherche & Développement",
   alternateName: "LGC R&D",
   url: SITE_URL,
   logo: {
@@ -93,7 +93,7 @@ const websiteSchema = {
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   url: SITE_URL,
-  name: "TechnoSchool — LGC R&D",
+  name: "TechnoSchool - LGC R&D",
   publisher: { "@id": `${SITE_URL}/#organization` },
   inLanguage: "fr-FR",
   potentialAction: {
