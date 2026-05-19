@@ -1932,10 +1932,56 @@ html{scroll-behavior:smooth}
   box-shadow:0 0 16px rgba(92,111,255,.3);
 }
 .cookie-banner-btn-accept:hover{background:#4D5FEF;box-shadow:0 0 22px rgba(92,111,255,.5)}
+.cookie-banner-btn-customize{
+  border:1px solid rgba(173,107,255,.45);background:rgba(173,107,255,.1);color:#c084fc;
+}
+.cookie-banner-btn-customize:hover{background:rgba(173,107,255,.2);color:#d8b4fe}
+/* Panneau préférences */
+.cookie-banner-prefs{flex-direction:column;align-items:flex-start;gap:.75rem}
+.cookie-banner-actions-full{justify-content:flex-end;width:100%}
+.cookie-pref-row{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  width:100%;padding:.5rem .75rem;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);border-radius:.625rem;
+}
+.cookie-pref-info{display:flex;flex-direction:column;gap:.2rem;flex:1;min-width:0}
+.cookie-pref-label{font-size:.84rem;font-weight:600;color:#e5e7eb}
+.cookie-pref-desc{font-size:.78rem;color:rgba(156,163,175,.8);line-height:1.4}
+.cookie-pref-always{font-size:.78rem;color:#4ade80;white-space:nowrap;flex-shrink:0}
+/* Toggle switch */
+.cookie-toggle{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0;cursor:pointer}
+.cookie-toggle input{opacity:0;width:0;height:0;position:absolute}
+.cookie-toggle-track{
+  position:absolute;inset:0;border-radius:9999px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  transition:background .2s ease;
+}
+.cookie-toggle-track::after{
+  content:"";position:absolute;width:16px;height:16px;border-radius:50%;
+  background:#9ca3af;top:2px;left:2px;transition:transform .2s ease,background .2s ease;
+}
+.cookie-toggle input:checked ~ .cookie-toggle-track{background:#5C6FFF;border-color:#5C6FFF}
+.cookie-toggle input:checked ~ .cookie-toggle-track::after{transform:translateX(18px);background:#fff}
+.cookie-toggle input:focus-visible ~ .cookie-toggle-track{outline:2px solid #818cf8;outline-offset:2px}
 @media(max-width:520px){
   .cookie-banner-inner{flex-direction:column;align-items:flex-start}
   .cookie-banner-actions{width:100%;justify-content:flex-end}
+  .cookie-pref-row{flex-direction:column;align-items:flex-start}
 }
+/* Notice RGPD formulaire contact */
+.contact-dialog-rgpd{
+  font-size:.78rem;color:rgba(156,163,175,.7);line-height:1.55;
+  padding:.625rem .75rem;
+  background:rgba(92,111,255,.06);
+  border:1px solid rgba(92,111,255,.15);
+  border-radius:.5rem;
+  margin-top:.25rem;
+}
+.contact-dialog-rgpd-link{
+  color:#818cf8;text-decoration:underline;text-underline-offset:2px;
+  background:none;border:none;cursor:pointer;padding:0;font-size:inherit;
+}
+.contact-dialog-rgpd-link:hover{color:#c4b5fd}
 
 /* Modal mentions légales — ease-in-out 0.6s */
 @keyframes modal-overlay-in{from{opacity:0}to{opacity:1}}

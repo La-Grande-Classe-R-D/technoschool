@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Instagram, Linkedin, X } from "lucide-react";
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -58,23 +59,30 @@ export function Footer() {
             {/* Social Icons */}
             <div className="flex items-center gap-4">
               <a
-                href="#"
+                href="https://www.linkedin.com/company/23704594/"
                 className="p-2 hover:bg-gray-900 rounded-full transition-colors duration-200"
                 aria-label="LinkedIn"
+                target = "blank"
+                rel="noopener noreferrer"
+
               >
                 <Linkedin className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
               </a>
               <a
-                href="#"
+                 href="https://www.tiktok.com/@lagrandeclasseofficiel"
                 className="p-2 hover:bg-gray-900 rounded-full transition-colors duration-200"
                 aria-label="TikTok"
+                target = "blank"
+                rel="noopener noreferrer"
               >
                 <TikTokIcon className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/lagrandeclasseidf/"
                 className="p-2 hover:bg-gray-900 rounded-full transition-colors duration-200"
                 aria-label="Instagram"
+                target = "blank"
+                rel="noopener noreferrer"
               >
                 <Instagram className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
               </a>
@@ -84,7 +92,7 @@ export function Footer() {
             <div className="flex flex-wrap justify-center md:justify-end gap-6 text-sm text-gray-400">
               <a
                 href="https://lagrandeclasse.fr"
-                target="_blank"
+                target="blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors duration-200"
               >
@@ -97,13 +105,12 @@ export function Footer() {
               >
                 Mentions légales
               </button>
-              <button
-                type="button"
-                onClick={() => setIsAccessOpen(true)}
-                className="hover:text-white transition-colors duration-200 cursor-pointer"
+              <Link
+                href="/accessibilite"
+                className="hover:text-white transition-colors duration-200"
               >
                 Accessibilité
-              </button>
+              </Link>
               <ContactInquiryDialog
                 title="Contactez-nous"
                 description="Indiquez vos coordonnées et votre message. Nous reviendrons vers vous rapidement."
@@ -179,8 +186,19 @@ export function Footer() {
                   <ul className="divide-y divide-gray-800 text-gray-400">
                     <li className="py-1.5">SAS : Société par actions simplifiée</li>
                     <li className="py-1.5">51 rue Gaston Lauriau, 93100 Montreuil</li>
-                    <li className="py-1.5">Directeur : Ismaëla Niang</li>
+                    <li className="py-1.5">
+                      <span className="text-gray-500">Capital social</span>{" "}
+                      [CAPITAL_SOCIAL] €
+                    </li>
+                    <li className="py-1.5">
+                      <span className="text-gray-500">Directeur de publication</span>{" "}
+                      Ismaëla Niang
+                    </li>
                     <li className="py-1.5">Téléphone : 01 40 10 27 22</li>
+                    <li className="py-1.5">
+                      <span className="text-gray-500">Email</span>{" "}
+                      <a href="mailto:contact@lgc-rd.fr" className="hover:text-white transition-colors">contact@lgc-rd.fr</a>
+                    </li>
                     <li className="py-1.5">
                       <span className="text-gray-500">SIRET</span>{" "}
                       882 626 229 00026
@@ -188,6 +206,25 @@ export function Footer() {
                     <li className="py-1.5">
                       <span className="text-gray-500">Code APE</span>{" "}
                       72.19Z – R&amp;D en autres sciences physiques et naturelles
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Hébergeur — LCEN art. 6 */}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">
+                  Hébergement
+                </p>
+                <div className="bg-gray-900 rounded-xl p-4 space-y-2.5">
+                  <p className="font-semibold text-white">
+                    <strong>Vercel Inc.</strong>
+                  </p>
+                  <div className="w-full h-px bg-gray-800" />
+                  <ul className="divide-y divide-gray-800 text-gray-400">
+                    <li className="py-1.5">440 N Barranca Ave #4133, Covina, CA 91723 – États-Unis</li>
+                    <li className="py-1.5">
+                      <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">vercel.com</a>
                     </li>
                   </ul>
                 </div>
@@ -238,10 +275,10 @@ export function Footer() {
             <div className="px-6 py-6 space-y-5 text-sm">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">
-                  Déclaration d&apos;accessibilité
+                  Déclaration déaccessibilité
                 </p>
                 <p className="text-gray-400 mb-4">
-                  LGC Recherche &amp; Développement s&apos;engage à rendre ce service accessible conformément à la loi n° 2005-102 du 11 février 2005.
+                  LGC Recherche &amp; Développement séengage à rendre ce service accessible conformément à la loi n° 2005-102 du 11 février 2005.
                 </p>
                 <div className="bg-gray-900 rounded-xl p-4 space-y-2.5">
                   <p className="font-semibold text-white">
@@ -313,7 +350,7 @@ export function Footer() {
                     <ul className="divide-y divide-gray-800 text-gray-400">
                       <li className="py-1.5">LGC R&amp;D collecte uniquement les données nécessaires au fonctionnement du service.</li>
                       <li className="py-1.5">Données collectées : nom, prénom, adresse email, établissement scolaire.</li>
-                      <li className="py-1.5">Aucune donnée n&apos;est vendue ou transmise à des tiers à des fins commerciales.</li>
+                      <li className="py-1.5">Aucune donnée néest vendue ou transmise à des tiers à des fins commerciales.</li>
                     </ul>
                   </div>
                 </div>
@@ -325,7 +362,7 @@ export function Footer() {
                   <div className="bg-gray-900 rounded-xl p-4">
                     <ul className="divide-y divide-gray-800 text-gray-400">
                       <li className="py-1.5">Gestion des accès à la plateforme TechnoSchool.</li>
-                      <li className="py-1.5">Suivi pédagogique et communication avec les apprenants.</li>
+                      <li className="py-1.5">Suivi pédagoagique et communication avec les apprenants.</li>
                       <li className="py-1.5">Amélioration des services proposés par LGC R&amp;D.</li>
                     </ul>
                   </div>
@@ -337,8 +374,8 @@ export function Footer() {
                   </p>
                   <div className="bg-gray-900 rounded-xl p-4">
                     <ul className="divide-y divide-gray-800 text-gray-400">
-                      <li className="py-1.5">Droit d&apos;accès, de rectification et d&apos;effacement de vos données.</li>
-                      <li className="py-1.5">Droit d&apos;opposition et de limitation du traitement.</li>
+                      <li className="py-1.5">Droit déccès, de rectification et déeffacement de vos données.</li>
+                      <li className="py-1.5">Droit déopposition et de limitation du traitement.</li>
                       <li className="py-1.5">
                         <span className="text-gray-500">Contact DPO</span>{" "}
                         <a href="mailto:contact@lgc-rd.fr" className="hover:text-white transition-colors">contact@lgc-rd.fr</a>
