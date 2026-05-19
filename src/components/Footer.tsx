@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Instagram, Linkedin, X } from "lucide-react";
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -104,13 +105,12 @@ export function Footer() {
               >
                 Mentions légales
               </button>
-              <button
-                type="button"
-                onClick={() => setIsAccessOpen(true)}
-                className="hover:text-white transition-colors duration-200 cursor-pointer"
+              <Link
+                href="/accessibilite"
+                className="hover:text-white transition-colors duration-200"
               >
                 Accessibilité
-              </button>
+              </Link>
               <ContactInquiryDialog
                 title="Contactez-nous"
                 description="Indiquez vos coordonnées et votre message. Nous reviendrons vers vous rapidement."
@@ -186,8 +186,19 @@ export function Footer() {
                   <ul className="divide-y divide-gray-800 text-gray-400">
                     <li className="py-1.5">SAS : Société par actions simplifiée</li>
                     <li className="py-1.5">51 rue Gaston Lauriau, 93100 Montreuil</li>
-                    <li className="py-1.5">Directeur : Ismaëla Niang</li>
+                    <li className="py-1.5">
+                      <span className="text-gray-500">Capital social</span>{" "}
+                      [CAPITAL_SOCIAL] €
+                    </li>
+                    <li className="py-1.5">
+                      <span className="text-gray-500">Directeur de publication</span>{" "}
+                      Ismaëla Niang
+                    </li>
                     <li className="py-1.5">Téléphone : 01 40 10 27 22</li>
+                    <li className="py-1.5">
+                      <span className="text-gray-500">Email</span>{" "}
+                      <a href="mailto:contact@lgc-rd.fr" className="hover:text-white transition-colors">contact@lgc-rd.fr</a>
+                    </li>
                     <li className="py-1.5">
                       <span className="text-gray-500">SIRET</span>{" "}
                       882 626 229 00026
@@ -195,6 +206,25 @@ export function Footer() {
                     <li className="py-1.5">
                       <span className="text-gray-500">Code APE</span>{" "}
                       72.19Z – R&amp;D en autres sciences physiques et naturelles
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Hébergeur — LCEN art. 6 */}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">
+                  Hébergement
+                </p>
+                <div className="bg-gray-900 rounded-xl p-4 space-y-2.5">
+                  <p className="font-semibold text-white">
+                    <strong>Vercel Inc.</strong>
+                  </p>
+                  <div className="w-full h-px bg-gray-800" />
+                  <ul className="divide-y divide-gray-800 text-gray-400">
+                    <li className="py-1.5">440 N Barranca Ave #4133, Covina, CA 91723 – États-Unis</li>
+                    <li className="py-1.5">
+                      <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">vercel.com</a>
                     </li>
                   </ul>
                 </div>

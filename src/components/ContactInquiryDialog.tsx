@@ -430,6 +430,27 @@ export function ContactInquiryDialog({
                         )}
                       </button>
                     </div>
+
+                    {/* Notice RGPD obligatoire — Art. 13 RGPD */}
+                    <p className="contact-dialog-rgpd">
+                      Les données collectées sont utilisées uniquement pour répondre à votre demande.
+                      Conformément au RGPD, vous disposez d&apos;un droit d&apos;accès, de rectification
+                      et de suppression. Pour l&apos;exercer :{" "}
+                      <a href="mailto:contact@lgc-rd.fr" className="contact-dialog-rgpd-link">
+                        contact@lgc-rd.fr
+                      </a>
+                      {" — "}
+                      <button
+                        type="button"
+                        className="contact-dialog-rgpd-link"
+                        onClick={() => {
+                          const btn = document.querySelector<HTMLButtonElement>("[data-open-policy]");
+                          btn?.click();
+                        }}
+                      >
+                        Politique de confidentialité
+                      </button>
+                    </p>
                   </form>
                 )}
               </div>

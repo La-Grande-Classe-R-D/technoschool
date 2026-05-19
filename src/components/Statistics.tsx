@@ -3,7 +3,9 @@
 import { Fragment, useEffect, useRef } from "react";
 import { animate, motion, useInView } from "motion/react";
 
-const stats = [
+// Mettre à jour ces valeurs avec les données réelles (ex: depuis un CMS ou un fichier de config).
+// Si une valeur est inconnue, la passer à null pour afficher "Données en cours de collecte".
+const stats: { target: number | null; suffix: string; label: string }[] = [
   { target: 75, suffix: "%", label: "Taux de réussite" },
   { target: 56, suffix: "", label: "Entreprises partenaires" },
   { target: 98, suffix: "%", label: "Satisfaction étudiante" },
@@ -28,7 +30,9 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
 
   return (
     <>
-      <span ref={ref}>0</span>
+      {/* suppressHydrationWarning évite une erreur SSR/client : le serveur rend la valeur
+          finale, le client démarre l'animation à 0 (légère différence intentionnelle). */}
+      <span ref={ref} suppressHydrationWarning>{target}</span>
       {suffix}
     </>
   );
@@ -49,7 +53,11 @@ export function Statistics() {
                 className="stats-item"
               >
                 <div className="text-6xl md:text-7xl bg-gradient-to-r from-[#5C6FFF] to-[#AD6BFF] bg-clip-text text-transparent mb-4">
-                  <Counter target={stat.target} suffix={stat.suffix} />
+                  {stat.target !== null ? (
+                    <Counter target={stat.target} suffix={stat.suffix} />
+                  ) : (
+                    <span style={{ fontSize: "1.25rem" }}>Données en cours de collecte</span>
+                  )}
                 </div>
                 <p className="text-lg text-white">{stat.label}</p>
               </motion.div>
