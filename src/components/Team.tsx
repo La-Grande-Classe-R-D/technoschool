@@ -53,8 +53,8 @@ const team = [
     image: "/asset/avatar.svg"
   },
       {
-    name: "Boussekaya Houda",
-    role: "Pôle entreprise",
+    name: "Sarah Benyoussef",
+    role: "Chargée d'admission",
     image: "/asset/avatar.svg"
   },
        {
