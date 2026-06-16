@@ -19,14 +19,16 @@ jobs:
 
       - name: Deploy Production (main)
         if: github.ref == 'refs/heads/main'
-        run: npx vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel --prod --yes
         env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: team_pUxGHcVPVlasqwRx3PLyfhhq
           VERCEL_PROJECT_ID: prj_ow55cJrt77iY0CE8pqoc0Zw5KeC9
 
       - name: Deploy Preview (front)
         if: github.ref == 'refs/heads/front'
-        run: npx vercel --yes --token=${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel --yes
         env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: team_pUxGHcVPVlasqwRx3PLyfhhq
           VERCEL_PROJECT_ID: prj_ow55cJrt77iY0CE8pqoc0Zw5KeC9
