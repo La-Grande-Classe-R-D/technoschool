@@ -1,0 +1,34 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main, front]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Deploy Production (main)
+        if: github.ref == 'refs/heads/main'
+        run: npx vercel --prod --yes
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: team_pUxGHcVPVlasqwRx3PLyfhhq
+          VERCEL_PROJECT_ID: prj_m3VT8mqvjfyWvKiFPxLu93zITcJS
+
+      - name: Deploy Preview (front)
+        if: github.ref == 'refs/heads/front'
+        run: npx vercel --yes
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: team_pUxGHcVPVlasqwRx3PLyfhhq
+          VERCEL_PROJECT_ID: prj_m3VT8mqvjfyWvKiFPxLu93zITcJS
