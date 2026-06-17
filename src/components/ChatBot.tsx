@@ -157,7 +157,12 @@ export function ChatBot() {
           </div>
 
           {/* Messages */}
-          <div className="chatbot-messages">
+          <div
+            className="chatbot-messages"
+            role="log"
+            aria-live="polite"
+            aria-label="Messages du chat"
+          >
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -196,6 +201,7 @@ export function ChatBot() {
               placeholder="Posez votre question… (Entrée pour envoyer)"
               rows={1}
               className="chatbot-input"
+              aria-label="Votre message"
               disabled={isLoading}
             />
             <button

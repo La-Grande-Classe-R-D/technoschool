@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useRef } from "react";
-import { animate, motion, useInView } from "motion/react";
+import { animate, motion, useInView, useReducedMotion } from "motion/react";
 
 // Mettre à jour ces valeurs avec les données réelles (ex: depuis un CMS ou un fichier de config).
 // Si une valeur est inconnue, la passer à null pour afficher "Données en cours de collecte".
@@ -14,9 +14,14 @@ const stats: { target: number | null; suffix: string; label: string }[] = [
 function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (!isInView || !ref.current) return;
+    if (prefersReducedMotion) {
+      ref.current.textContent = target.toString();
+      return;
+    }
     const el = ref.current;
     const controls = animate(0, target, {
       duration: 2,
@@ -26,7 +31,7 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
       },
     });
     return () => controls.stop();
-  }, [isInView, target]);
+  }, [isInView, target, prefersReducedMotion]);
 
   return (
     <>

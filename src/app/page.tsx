@@ -43,7 +43,7 @@ export default function Page() {
 
       <ChatBot />
       <Nav />
-      <div className="relative z-10 pt-16">
+      <main id="main-content" className="relative z-10 pt-16">
         <Hero />
         <Formations />
         <Team />
@@ -52,7 +52,7 @@ export default function Page() {
         <Events />
         <CTA />
         <Footer />
-      </div>
+      </main>
     </div>
   );
 }

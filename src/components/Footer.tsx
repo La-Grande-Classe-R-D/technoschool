@@ -61,8 +61,8 @@ export function Footer() {
               <a
                 href="https://www.linkedin.com/company/23704594/"
                 className="p-2 hover:bg-gray-900 rounded-full transition-colors duration-200"
-                aria-label="LinkedIn"
-                target = "blank"
+                aria-label="LinkedIn (ouvre dans un nouvel onglet)"
+                target="_blank"
                 rel="noopener noreferrer"
 
               >
@@ -71,8 +71,8 @@ export function Footer() {
               <a
                  href="https://www.tiktok.com/@lagrandeclasseofficiel"
                 className="p-2 hover:bg-gray-900 rounded-full transition-colors duration-200"
-                aria-label="TikTok"
-                target = "blank"
+                aria-label="TikTok (ouvre dans un nouvel onglet)"
+                target="_blank"
                 rel="noopener noreferrer"
               >
                 <TikTokIcon className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
@@ -80,8 +80,8 @@ export function Footer() {
               <a
                 href="https://www.instagram.com/lagrandeclasseidf/"
                 className="p-2 hover:bg-gray-900 rounded-full transition-colors duration-200"
-                aria-label="Instagram"
-                target = "blank"
+                aria-label="Instagram (ouvre dans un nouvel onglet)"
+                target="_blank"
                 rel="noopener noreferrer"
               >
                 <Instagram className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
@@ -92,8 +92,9 @@ export function Footer() {
             <div className="flex flex-wrap justify-center md:justify-end gap-6 text-sm text-gray-400">
               <a
                 href="https://lagrandeclasse.fr"
-                target="blank"
+                target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Visiter le site La Grande Classe (ouvre dans un nouvel onglet)"
                 className="hover:text-white transition-colors duration-200"
               >
                 lagrandeclasse.fr
