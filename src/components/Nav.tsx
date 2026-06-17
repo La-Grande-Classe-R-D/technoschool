@@ -5,7 +5,14 @@ import React, { useEffect, useRef, useState } from "react";
 export function Nav(): React.JSX.Element {
   const [active, setActive] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState<boolean>(false);
   const toggleBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const ids = ["formations", "team", "events"] as const;
@@ -71,7 +78,7 @@ export function Nav(): React.JSX.Element {
 
   return (
     <nav
-      className={`site-nav pointer-events-auto ${open ? "is-open" : ""}`}
+      className={`site-nav pointer-events-auto ${open ? "is-open" : ""} ${scrolled ? "is-scrolled" : ""}`}
       aria-label="Navigation principale"
     >
       <div className="site-nav-inner">
