@@ -1,4 +1,14 @@
 import { NextRequest } from "next/server";
+import { rateLimit } from "@/lib/rate-limit";
+
+const ALLOWED_ORIGINS = [
+  "https://technoschool.lagrandeclasse.fr",
+  "https://www.technoschool.lagrandeclasse.fr",
+  ...(process.env.NODE_ENV === "development" ? ["http://localhost:3000"] : []),
+];
+
+const MAX_MESSAGES = 20;
+const MAX_MESSAGE_LENGTH = 1000;
 
 const SYSTEM_PROMPT = `Tu es l'assistant virtuel de La Grande Classe (LGC) Recherche & Développement, une entreprise SAS implantée au 51 rue Gaston Lauriau, 93100 Montreuil (SIRET 882 626 229 00026, code APE 72.19Z).
 
@@ -17,7 +27,75 @@ Règles :
 - Ne réponds pas aux questions sans rapport avec LGC ou le BTS SIO.`;
 
 export async function POST(req: NextRequest) {
-  const { messages } = await req.json();
+  // Vérification origine
+  const origin = req.headers.get("origin") ?? "";
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return new Response(JSON.stringify({ error: "Origine non autorisée" }), {
+      status: 403,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  // Rate limiting — 20 messages par IP par minute
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    req.headers.get("x-real-ip") ??
+    "unknown";
+  if (!rateLimit(`chat:${ip}`, 20, 60 * 1000)) {
+    return new Response(JSON.stringify({ error: "Trop de messages. Veuillez patienter." }), {
+      status: 429,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  // Validation Content-Type
+  const contentType = req.headers.get("content-type") ?? "";
+  if (!contentType.includes("application/json")) {
+    return new Response(JSON.stringify({ error: "Corps de requête invalide" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  let messages: unknown;
+  try {
+    ({ messages } = await req.json());
+  } catch {
+    return new Response(JSON.stringify({ error: "Corps de requête invalide" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  // Validation structure messages
+  if (!Array.isArray(messages) || messages.length === 0) {
+    return new Response(JSON.stringify({ error: "Messages invalides" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  if (messages.length > MAX_MESSAGES) {
+    return new Response(JSON.stringify({ error: "Historique trop long" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  for (const msg of messages) {
+    if (
+      typeof msg !== "object" ||
+      msg === null ||
+      !["user", "assistant"].includes((msg as Record<string, unknown>).role as string) ||
+      typeof (msg as Record<string, unknown>).content !== "string" ||
+      ((msg as Record<string, unknown>).content as string).length > MAX_MESSAGE_LENGTH
+    ) {
+      return new Response(JSON.stringify({ error: "Format de message invalide" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }
 
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey || apiKey === "your_deepseek_api_key_here") {

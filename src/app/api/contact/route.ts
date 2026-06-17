@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { Resend } from "resend";
+import { rateLimit } from "@/lib/rate-limit";
 
-const MIN_FILL_MS = 3000; // temps minimum humain pour remplir le formulaire
+const MIN_FILL_MS = 3000;
+const ALLOWED_ORIGINS = [
+  "https://technoschool.lagrandeclasse.fr",
+  "https://www.technoschool.lagrandeclasse.fr",
+  ...(process.env.NODE_ENV === "development" ? ["http://localhost:3000"] : []),
+];
 
 const contactSchema = z.object({
   nom: z.string().min(2, "Nom trop court").max(100, "Nom trop long"),
@@ -143,6 +149,24 @@ function buildText(
 }
 
 export async function POST(req: NextRequest) {
+  // Vérification origine — bloque les appels cross-origin hors domaine autorisé
+  const origin = req.headers.get("origin") ?? "";
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return NextResponse.json({ error: "Origine non autorisée" }, { status: 403 });
+  }
+
+  // Rate limiting — 3 soumissions par IP par 10 minutes
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    req.headers.get("x-real-ip") ??
+    "unknown";
+  if (!rateLimit(`contact:${ip}`, 3, 10 * 60 * 1000)) {
+    return NextResponse.json(
+      { error: "Trop de demandes. Veuillez patienter quelques minutes avant de réessayer." },
+      { status: 429 },
+    );
+  }
+
   // Validation Content-Type
   const contentType = req.headers.get("content-type") ?? "";
   if (!contentType.includes("application/json")) {
