@@ -1589,7 +1589,7 @@ html {
 html{scroll-behavior:smooth}
 /* Local nav styles to avoid relying on Tailwind utilities for new component */
 .site-nav{position:fixed;top:0;left:0;right:0;z-index:50;background:#050508;border-bottom:1px solid #111;height:64px;transition:background .3s ease,backdrop-filter .3s ease}
-.site-nav.is-scrolled{background:rgba(5,5,8,.8);backdrop-filter:blur(1rem)}
+.site-nav.is-scrolled{background:rgba(5,5,8,.45);backdrop-filter:blur(2rem) saturate(180%)}
 .site-nav-inner{max-width:72rem;margin:0 auto;height:100%;padding:0 1rem;display:flex;align-items:center;justify-content:center}
 .site-nav-links{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center}
 .site-nav-link{position:relative;color:rgba(255,255,255,.9);padding:.5rem 1rem;border-radius:10px;text-decoration:none;transition:color .15s ease}
