@@ -5,6 +5,14 @@ import { createPortal } from "react-dom";
 
 type Status = "idle" | "loading" | "success" | "error";
 
+type FieldErrors = {
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  formation?: string;
+  message?: string;
+};
+
 type ContactInquiryDialogProps = {
   trigger: React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>;
   title?: string;
@@ -40,6 +48,7 @@ export function ContactInquiryDialog({
   const [mounted, setMounted] = React.useState(false);
   const [status, setStatus] = React.useState<Status>("idle");
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [fieldErrors, setFieldErrors] = React.useState<FieldErrors>({});
   const openTimeRef = React.useRef<number>(0);
   const dialogRef = React.useRef<HTMLDivElement>(null);
   const previousFocusRef = React.useRef<HTMLElement | null>(null);
@@ -77,23 +86,56 @@ export function ContactInquiryDialog({
     return () => clearTimeout(timer);
   }, [status]);
 
+  function clearFieldError(field: keyof FieldErrors) {
+    setFieldErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  }
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus("loading");
     setErrorMessage("");
 
     const form = event.currentTarget;
 
+    const nom = (form.elements.namedItem("fullName") as HTMLInputElement).value.trim();
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    const telephone = (form.elements.namedItem("phone") as HTMLInputElement).value.trim();
+    const formation = showFormationField
+      ? (form.elements.namedItem("formation") as HTMLSelectElement)?.value ?? ""
+      : "";
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim();
+
+    const errors: FieldErrors = {};
+    if (!nom) errors.fullName = "Veuillez renseigner votre nom complet.";
+    if (!email) {
+      errors.email = "Veuillez renseigner votre email.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.email = "L'adresse email n'est pas valide.";
+    }
+    if (!telephone) errors.phone = "Veuillez renseigner votre téléphone.";
+    if (showFormationField && !formation) errors.formation = "Veuillez sélectionner une formation.";
+    if (!message) errors.message = "Veuillez renseigner votre message.";
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      const firstErrorField = form.querySelector<HTMLElement>("[aria-invalid='true']");
+      firstErrorField?.focus();
+      return;
+    }
+
+    setFieldErrors({});
+    setStatus("loading");
+
     const payload = {
-      nom: (form.elements.namedItem("fullName") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      telephone: (form.elements.namedItem("phone") as HTMLInputElement).value,
-      formation: showFormationField
-        ? (form.elements.namedItem("formation") as HTMLSelectElement)?.value ??
-          ""
-        : "",
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement)
-        .value,
+      nom,
+      email,
+      telephone,
+      formation,
+      message,
       _url: (form.elements.namedItem("_url") as HTMLInputElement)?.value ?? "",
       _t: String(openTimeRef.current),
     };
@@ -125,6 +167,7 @@ export function ContactInquiryDialog({
     setIsClosing(false);
     setStatus("idle");
     setErrorMessage("");
+    setFieldErrors({});
     openTimeRef.current = Date.now();
     setOpen(true);
   }
@@ -301,9 +344,17 @@ export function ContactInquiryDialog({
                         type="text"
                         autoComplete="name"
                         maxLength={100}
-                        required
                         disabled={status === "loading"}
+                        aria-invalid={!!fieldErrors.fullName}
+                        aria-describedby={fieldErrors.fullName ? "err-fullName" : undefined}
+                        onChange={() => clearFieldError("fullName")}
+                        style={fieldErrors.fullName ? { borderColor: "#f87171" } : undefined}
                       />
+                      {fieldErrors.fullName && (
+                        <span id="err-fullName" className="contact-dialog-field-error" role="alert">
+                          {fieldErrors.fullName}
+                        </span>
+                      )}
                     </div>
 
                     <div className="contact-dialog-grid">
@@ -315,9 +366,17 @@ export function ContactInquiryDialog({
                           type="email"
                           autoComplete="email"
                           maxLength={254}
-                          required
                           disabled={status === "loading"}
+                          aria-invalid={!!fieldErrors.email}
+                          aria-describedby={fieldErrors.email ? "err-email" : undefined}
+                          onChange={() => clearFieldError("email")}
+                          style={fieldErrors.email ? { borderColor: "#f87171" } : undefined}
                         />
+                        {fieldErrors.email && (
+                          <span id="err-email" className="contact-dialog-field-error" role="alert">
+                            {fieldErrors.email}
+                          </span>
+                        )}
                       </div>
 
                       <div className="contact-dialog-field">
@@ -328,9 +387,17 @@ export function ContactInquiryDialog({
                           type="tel"
                           autoComplete="tel"
                           maxLength={20}
-                          required
                           disabled={status === "loading"}
+                          aria-invalid={!!fieldErrors.phone}
+                          aria-describedby={fieldErrors.phone ? "err-phone" : undefined}
+                          onChange={() => clearFieldError("phone")}
+                          style={fieldErrors.phone ? { borderColor: "#f87171" } : undefined}
                         />
+                        {fieldErrors.phone && (
+                          <span id="err-phone" className="contact-dialog-field-error" role="alert">
+                            {fieldErrors.phone}
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -342,9 +409,12 @@ export function ContactInquiryDialog({
                         <select
                           id="contact-formation"
                           name="formation"
-                          required
                           defaultValue={defaultFormation}
                           disabled={status === "loading"}
+                          aria-invalid={!!fieldErrors.formation}
+                          aria-describedby={fieldErrors.formation ? "err-formation" : undefined}
+                          onChange={() => clearFieldError("formation")}
+                          style={fieldErrors.formation ? { borderColor: "#f87171" } : undefined}
                         >
                           <option value="">Sélectionnez une formation</option>
                           {formationOptions.map((formation) => (
@@ -353,6 +423,11 @@ export function ContactInquiryDialog({
                             </option>
                           ))}
                         </select>
+                        {fieldErrors.formation && (
+                          <span id="err-formation" className="contact-dialog-field-error" role="alert">
+                            {fieldErrors.formation}
+                          </span>
+                        )}
                       </div>
                     ) : null}
 
@@ -364,9 +439,17 @@ export function ContactInquiryDialog({
                         rows={5}
                         placeholder={messagePlaceholder}
                         maxLength={2000}
-                        required
                         disabled={status === "loading"}
+                        aria-invalid={!!fieldErrors.message}
+                        aria-describedby={fieldErrors.message ? "err-message" : undefined}
+                        onChange={() => clearFieldError("message")}
+                        style={fieldErrors.message ? { borderColor: "#f87171" } : undefined}
                       />
+                      {fieldErrors.message && (
+                        <span id="err-message" className="contact-dialog-field-error" role="alert">
+                          {fieldErrors.message}
+                        </span>
+                      )}
                     </div>
 
                     {status === "error" && errorMessage ? (
