@@ -55,7 +55,7 @@ const team = [
       {
     name: "Sarah Benyoussef",
     role: "Chargée d'admission",
-    image: "/asset/avatar.svg"
+    image: "/asset/sarah.png"
   },
        {
     name: "Sophie Armand",
