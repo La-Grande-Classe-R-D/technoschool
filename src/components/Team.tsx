@@ -44,11 +44,11 @@ const team = [
   },
  
       {
-    name: "Morin Maud",
-    role: "Chargée de formation",
+    name: "Houda BOUSSEKAY",
+    role: "Relations entreprises",
     image: "/asset/avatar.svg"
   },
-  
+   
 
 ];
 
