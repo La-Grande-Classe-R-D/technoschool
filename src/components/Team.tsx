@@ -44,7 +44,7 @@ const team = [
   },
  
       {
-    name: "Houda BOUSSEKAY",
+    name: "Houda Boussekay",
     role: "Relations entreprises",
     image: "/asset/avatar.svg"
   },
