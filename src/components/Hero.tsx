@@ -3,7 +3,6 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import { Code2, Database, Shield } from "lucide-react";
-import { Particles } from "./Particles";
 
 // import { ContactInquiryDialog } from "./ContactInquiryDialog";
 import { EXTERNAL_FORM_URL } from "@/lib/constants";
@@ -21,13 +20,10 @@ export function Hero() {
     >
       {/* Ambient orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600 rounded-full opacity-20 blur-[120px]" />
-        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-600 rounded-full opacity-20 blur-[120px]" />
-        <div className="absolute bottom-1/4 left-1/2 w-96 h-96 bg-violet-600 rounded-full opacity-20 blur-[120px]" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600 rounded-full opacity-20 blur-[180px]" />
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-600 rounded-full opacity-20 blur-[180px]" />
+        <div className="absolute bottom-1/4 left-1/2 w-96 h-96 bg-violet-600 rounded-full opacity-20 blur-[180px]" />
       </div>
-
-      {/* Floating particles */}
-      <Particles count={90} />
 
       {/* Gradient bottom border */}
       <div className="hero-gradient-border" />

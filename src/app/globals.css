@@ -101,7 +101,7 @@
     --font-weight-medium: 500;
     --leading-tight: 1.25;
     --radius-2xl: 1rem;
-    --blur-sm: 8px;
+    --blur-sm: 16px;
     --default-transition-duration: .15s;
     --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     --default-font-family: var(--font-sans);
@@ -1004,13 +1004,13 @@
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
 
-  .blur-\[120px\] {
-    --tw-blur: blur(120px);
+  .blur-\[180px\] {
+    --tw-blur: blur(180px);
     filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
   }
 
-  .blur-\[150px\] {
-    --tw-blur: blur(150px);
+  .blur-\[220px\] {
+    --tw-blur: blur(220px);
     filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
   }
 
@@ -1849,10 +1849,10 @@ html{scroll-behavior:smooth}
   padding:2rem;border-radius:1.25rem;
   border:1px solid rgba(255,255,255,.08);
   background:linear-gradient(160deg,rgba(17,24,39,.8),rgba(31,41,55,.45));
-  backdrop-filter:blur(6px);
+  backdrop-filter:blur(14px);
   transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease;
 }
-.formation-card:hover{border-color:#5C6FFF;box-shadow:0 0 30px rgba(92,111,255,.28);transform:translateY(-4px)}
+.formation-card:hover{border-color:#5C6FFF;box-shadow:0 0 45px rgba(92,111,255,.32);transform:translateY(-4px)}
 .formation-card-icon{
   display:flex;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:.85rem;
   margin-bottom:1.5rem;background:linear-gradient(135deg,#5C6FFF,#AD6BFF);

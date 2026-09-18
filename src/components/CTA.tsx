@@ -10,7 +10,7 @@ export function CTA() {
     <section className="relative py-32 px-6 overflow-hidden bg-black/60">
       {/* Blue halo effect */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-[600px] h-[600px] bg-[#5C6FFF] rounded-full opacity-20 blur-[150px]" />
+        <div className="w-[600px] h-[600px] bg-[#5C6FFF] rounded-full opacity-20 blur-[220px]" />
       </div>
 
       <motion.div
