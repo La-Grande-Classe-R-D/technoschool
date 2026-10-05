@@ -30,3 +30,6 @@ CONTACT_FORM_SETUP.md
 # Rapports internes
 docs/
 .env*.local
+
+# Supabase CLI
+supabase/.temp/
