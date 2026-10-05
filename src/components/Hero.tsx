@@ -107,7 +107,7 @@ export function Hero() {
             <div className="hero-visual-glow" aria-hidden="true" />
             <div className="hero-visual-frame">
               <Image
-                src="/asset/affiche-technoSchool-lgc.webp"
+                src="/asset/LGC-TechnoSchool-BTS-SIO-2027.png"
                 alt="TechnoSchool — La Grande Classe R&D"
                 width={1122}
                 height={1402}
