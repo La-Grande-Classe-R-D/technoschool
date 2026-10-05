@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { Resend } from "resend";
 import { rateLimit } from "@/lib/rate-limit";
+import { saveContactRequest } from "@/lib/supabase";
 
 const MIN_FILL_MS = 3000;
 const ALLOWED_ORIGINS = [
@@ -209,6 +210,8 @@ export async function POST(req: NextRequest) {
   }
 
   const { nom, email, telephone, formation, message } = parsed.data;
+
+  await saveContactRequest({ nom, email, telephone, formation, message });
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_EMAIL_TO;
