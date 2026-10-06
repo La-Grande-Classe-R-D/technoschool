@@ -9,8 +9,10 @@ import { CTA } from "../components/CTA";
 import { Footer } from "../components/Footer";
 import { ChatBot } from "../components/ChatBot";
 import { ParticlesBackground } from "../components/ParticlesBackground";
+import { getTeamMembers } from "@/lib/team";
 
-export default function Page() {
+export default async function Page() {
+  const members = await getTeamMembers();
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <ParticlesBackground count={90} />
@@ -19,7 +21,7 @@ export default function Page() {
       <main id="main-content" className="relative z-10 pt-16">
         <Hero />
         <Formations />
-        <Team />
+        <Team members={members} />
         <Statistics />
         <Testimonials />
         <Events />
