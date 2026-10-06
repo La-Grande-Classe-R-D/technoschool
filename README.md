@@ -39,7 +39,14 @@ technoschool/
 │   ├── app/
 │   │   ├── layout.tsx      # layout racine (Server Component) + metadata + favicons
 │   │   ├── page.tsx        # route `/` — compose toutes les sections (Server Component)
-│   │   └── globals.css     # styles globaux (CSS applicatif compilé statiquement)
+│   │   ├── globals.css     # styles globaux (CSS applicatif compilé statiquement)
+│   │   └── api/
+│   │       ├── chat/route.ts     # API du chatbot
+│   │       └── contact/route.ts  # formulaire de contact : validation, anti-bot, Supabase puis mail Resend
+│   ├── lib/
+│   │   ├── supabase.ts     # saveContactRequest() — insertion REST dans `contact_requests` (serveur, service_role)
+│   │   ├── rate-limit.ts   # limitation de débit par IP
+│   │   └── constants.ts
 │   └── components/         # sections (toutes "use client" à cause de motion)
 │       ├── Nav.tsx         # navigation ancrée (desktop + burger mobile)
 │       ├── Hero.tsx
@@ -52,13 +59,27 @@ technoschool/
 │       ├── Footer.tsx
 │       ├── ContactInquiryDialog.tsx
 │       └── Particles.tsx   # canvas animé (Hero + bandes latérales)
+├── supabase/
+│   └── migrations/
+│       └── 20261005000000_contact_requests.sql  # table `contact_requests` (RLS activé, sans policy)
 ├── public/
 │   ├── asset/              # images et médias servis à la racine (/asset/...)
 │   └── favicon/            # icônes et manifest
+├── .env.example            # variables d'environnement attendues (Resend, Supabase, DeepSeek)
 ├── next.config.mjs         # basePath / assetPrefix configurables
 ├── tsconfig.json
 └── package.json
 ```
+
+## Base de données (Supabase)
+
+Les demandes du formulaire de contact sont enregistrées dans la table `contact_requests` avant l'envoi du mail Resend.
+
+- Le flux : `ContactInquiryDialog` → `POST /api/contact` → `saveContactRequest()` (`src/lib/supabase.ts`) → mail Resend.
+- L'enregistrement ne bloque jamais l'envoi du mail : en cas d'erreur Supabase, l'erreur est loguée et le mail part quand même.
+- La table a le RLS activé et aucune policy : seule la clé `service_role`, côté serveur, peut y écrire. Cette clé ne doit jamais être exposée au client (pas de préfixe `NEXT_PUBLIC_`).
+- Variables d'environnement requises : `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY` (voir `.env.example`), à définir aussi sur Vercel.
+- Le schéma est versionné dans `supabase/migrations/`.
 
 ## Sections de la landing page
 
