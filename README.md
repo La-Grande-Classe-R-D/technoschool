@@ -45,6 +45,7 @@ technoschool/
 │   │       └── contact/route.ts  # formulaire de contact : validation, anti-bot, Supabase puis mail Resend
 │   ├── lib/
 │   │   ├── supabase.ts     # saveContactRequest() — insertion REST dans `contact_requests` (serveur, service_role)
+│   │   ├── team.ts         # getTeamMembers() — lit `team_members` (repli sur une liste statique si Supabase est indisponible)
 │   │   ├── rate-limit.ts   # limitation de débit par IP
 │   │   └── constants.ts
 │   └── components/         # sections (toutes "use client" à cause de motion)
@@ -61,7 +62,8 @@ technoschool/
 │       └── Particles.tsx   # canvas animé (Hero + bandes latérales)
 ├── supabase/
 │   └── migrations/
-│       └── 20261005000000_contact_requests.sql  # table `contact_requests` (RLS activé, sans policy)
+│       ├── 20261005000000_contact_requests.sql  # table `contact_requests` (RLS activé, sans policy)
+│       └── 20261006000000_team_members.sql      # table `team_members` (trombinoscope) + données initiales
 ├── public/
 │   ├── asset/              # images et médias servis à la racine (/asset/...)
 │   └── favicon/            # icônes et manifest
@@ -79,6 +81,7 @@ Les demandes du formulaire de contact sont enregistrées dans la table `contact_
 - L'enregistrement ne bloque jamais l'envoi du mail : en cas d'erreur Supabase, l'erreur est loguée et le mail part quand même.
 - La table a le RLS activé et aucune policy : seule la clé `service_role`, côté serveur, peut y écrire. Cette clé ne doit jamais être exposée au client (pas de préfixe `NEXT_PUBLIC_`).
 - Variables d'environnement requises : `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY` (voir `.env.example`), à définir aussi sur Vercel.
+- La section « Team » lit la table `team_members` (`published`, triée par `position`) via `src/lib/team.ts`, avec un cache de 60 s.
 - Le schéma est versionné dans `supabase/migrations/`.
 
 ## Sections de la landing page
